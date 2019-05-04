@@ -77,6 +77,8 @@ class FileView(APIView):
     file_serializer = FileSerializer(data=request.data)
     if file_serializer.is_valid():
       file_serializer.save()
+      print('sukses++++++++++++++++++')
       return Response(file_serializer.data, status=status.HTTP_201_CREATED)
     else:
+      print('gagal===================')
       return Response(file_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
