@@ -93,8 +93,9 @@ def process(path):
     #         print(ciri)
     feature.append(ciri)
     # Klasifikasi
-    model = load('ModelTest4.joblib')
+    model = load('ModelTest5.joblib')
     # print(model)
     predicted_labels = model.predict(feature)
+    proba=model.predict_proba(feature)
 
-    return (con,imGray,hue,s,v,feature,predicted_labels)
+    return (con,imGray,hue,s,v,feature,predicted_labels,proba)

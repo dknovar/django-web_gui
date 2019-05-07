@@ -22,7 +22,7 @@ def index(request):
       path = a.file.url
       print("=================================!!!!!!!!")
       print(path)
-      BnC,imGray,h,s,v,feature,predicted_labels = process(path)
+      BnC,imGray,h,s,v,feature,predicted_labels,proba = process(path)
  
 
     citra=[]
@@ -55,6 +55,25 @@ def index(request):
       result='Telinga Kotor'
     else:
       result='Telinga Bersih'
+    # Mencari nilai probabilitas
+    pro=str(proba)
+    split = pro.split(" ")
+    prob=[]
+    for i in split:
+        j=i.replace('[', '')
+        m=j.replace(']', '')
+        print(m)
+        prob.append(m)
+    b1=prob[0]
+    b2=float(b1)
+    bersih=str(round((b2*100),3))
+    # print('bersih=',bersih+'%')
+
+    k1=prob[1]
+    k2=float(k1)
+    kotor=str(round((k2*100),3))
+    # print('kotor=',kotor+'%')
+
     contex = {
         'judul':'About Opang',
         'penulis':'Iya Opang',
@@ -66,6 +85,10 @@ def index(request):
         'citra5':citra[4],
         'ciri':feature,
         'hasil':result,
+        'probabilitas':[
+          ['Bersih',bersih],
+          ['Kotor',kotor]
+        ]
     }
     return render(request,'deteksi/index.html',contex)
 def recents(request):
